@@ -6,7 +6,7 @@ import PostInfoBox from "./PostInfoBox";
 
 export default function PostCard() {
   return (
-    <section className="text-[14px] rounded-2xl bg-white w-full h-[640px] flex flex-col px-[12px] py-[16px] gap-[8px]">
+    <section className="text-[14px] rounded-2xl bg-white w-full h-[640px] flex flex-col px-[12px] py-[16px] pt-[8px] gap-[8px]">
       <UserInfoBox name={""} image={""} />
       <Image
         className="w-full object-cover h-[420px] rounded-2xl"
