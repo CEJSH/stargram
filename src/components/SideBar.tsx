@@ -1,10 +1,12 @@
 import { User } from "@/model/user";
 import React from "react";
 import UserInfoBox from "./UserInfoBox";
+
 type Props = {
   user: User;
   className: string;
 };
+
 export default function SideBar({
   user: { name, username, image },
   className,
@@ -12,7 +14,8 @@ export default function SideBar({
   return (
     <section
       className={
-        className + " text-[12px] text-[#c7c7c7] px-[32px] mx-[36px] gap-[16px]"
+        className +
+        " text-[12px] text-[#c7c7c7] md:px-[32px] px-[8px] md:mx-[24px] mx-[16px] gap-[16px]"
       }
     >
       <UserInfoBox name={name} userId={username} image={image} />

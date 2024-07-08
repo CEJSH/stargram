@@ -18,7 +18,7 @@ export default function Avatar({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {!!image ? (
         <img
-          className={`bg-white rounded-full ${getImageSizeStyle(
+          className={`bg-white rounded-full object-cover ${getImageSizeStyle(
             size,
             highlight
           )}`}
@@ -55,7 +55,7 @@ function getImageSizeStyle(size: string, highlight: boolean): string {
   const sizeStyle =
     size === "small"
       ? "w-[36px] h-[36px] p-[0.08rem]"
-      : `w-[64px] h-[64px] p-[0.15rem]`;
+      : `w-[54px] h-[54px] p-[0.15rem]`;
 
   return `${highlightStyle} ${sizeStyle}`;
 }

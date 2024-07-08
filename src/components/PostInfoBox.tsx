@@ -3,20 +3,22 @@ import React from "react";
 import others from "../../public/images/12.jpg";
 import { PiHeart } from "react-icons/pi";
 import { TbMessageDots, TbSend } from "react-icons/tb";
+import { FaRegBookmark } from "react-icons/fa";
 
 export default function PostInfoBox() {
   return (
     <section className="flex flex-col gap-[10px] h-full w-full p-[4px]">
-      <div className="flex flex-row">
-        <div className="cursor-pointer flex flex-row gap-[2px] items-center rounded-2xl border-fuchsia-600 border-[1px] px-[8px] py-[4px] border-solid">
-          <PiHeart style={{ fontSize: "18px" }} />
-          <div>123</div>
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-row items-center gap-[16px]">
+          <div className="cursor-pointer flex flex-row gap-[2px] items-center rounded-2xl border-fuchsia-600 border-[1px] px-[8px] py-[4px] border-solid">
+            <PiHeart style={{ fontSize: "18px", cursor: "pointer" }} />
+            <div>123</div>
+          </div>
+          <TbMessageDots style={{ fontSize: "18px", cursor: "pointer" }} />
+          <TbSend style={{ fontSize: "18px", cursor: "pointer" }} />
         </div>
-        <div className="flex flex-row items-center px-[8px] py-[4px]">
-          <TbMessageDots style={{ fontSize: "18px" }} />
-        </div>
-        <div className="cursor-pointer flex flex-row items-center px-[8px] py-[4px]">
-          <TbSend style={{ fontSize: "18px" }} />
+        <div className="flex items-center">
+          <FaRegBookmark style={{ fontSize: "18px", cursor: "pointer" }} />
         </div>
       </div>
       <div className="w-full flex gap-[8px]">

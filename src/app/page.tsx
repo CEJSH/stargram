@@ -6,14 +6,17 @@ import { redirect } from "next/navigation";
 
 export default async function HomePage() {
   const session = await auth();
-  const sectionClassName = "min-w-[420px] basis-1/3 flex flex-col h-100vh";
+  const followingBarStyle =
+    "max-h-full md:max-h-[calc(100vh-124px)] min-w-[300px] md:basis-1/4 basis-1/5 flex flex-col";
+  const sectionClassName = "min-w-[420px] md:basis-1/3 basis-2/5 flex flex-col";
+
   const user = session?.user;
   if (!user) {
     redirect("/signin");
   }
   return (
-    <section className="flex flex-col md:flex-row max-w-screen-2xl gap-[16px] w-full h-full pt-[16px] justify-center">
-      <FollowingBar className={sectionClassName} />
+    <section className="overflow-y-auto flex flex-col md:flex-row justify-between max-w-screen-2xl gap-[16px] w-full py-[16px]">
+      <FollowingBar className={followingBarStyle} />
       <PostList className={sectionClassName} />
       <SideBar className={sectionClassName} user={user} />
     </section>

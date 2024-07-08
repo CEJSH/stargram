@@ -16,6 +16,7 @@ export const providerMap = providers.map((provider) => {
     return { id: provider.id, name: provider.name };
   }
 });
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [google],
   callbacks: {
@@ -34,7 +35,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true;
     },
     async session({ session }) {
-      console.log(session);
       const user = session?.user;
       if (user) {
         session.user = {

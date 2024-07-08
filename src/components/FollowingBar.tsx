@@ -1,15 +1,52 @@
+"use client";
 import React from "react";
 import UserInfoBox from "./UserInfoBox";
+import useSWR from "swr";
+import { DetailUser } from "@/model/user";
+import { PropagateLoader } from "react-spinners";
+import Link from "next/link";
 
 export default function FollowingBar({ className }: { className: string }) {
+  const { data, isLoading: loading, error } = useSWR<DetailUser>("/api/me");
+  const users = data?.following && [
+    ...data?.following,
+    ...data?.following,
+    ...data?.following,
+  ];
   return (
     <section
       className={
-        className + " text-[12px] text-[#c7c7c7] px-[32px] mx-[36px] gap-[16px]"
+        className +
+        " bg-white rounded-2xl text-[12px] text-[#c7c7c7] py-[20px] md:px-[40px] px-[1px] md:mx-[16px] mx-0 gap-[16px]"
       }
     >
-      <div className="text-[16px] font-[600]">Following</div>
-      <UserInfoBox following name={""} userId={""} image={""} size="small" />
+      <div className="text-[20px] font-[600] pt-[8px] md:block hidden">
+        Following
+      </div>
+      {loading ? (
+        <div className="pt-[24px] flex w-full justify-center">
+          <PropagateLoader className="self-center" color={"gray"} size={7} />
+        </div>
+      ) : (
+        (!users || users.length === 0) && <p>{`You don't hve following`}</p>
+      )}
+      {users && users.length > 0 && (
+        <ul className="flex md:flex-col flex-row md:gap-0 gap-4 max-h-full no-scrollbar overflow-y-auto overflow-x-auto">
+          {users.map(({ image, username, name }, i) => (
+            <li className="md:mb-[16px] mb-0 flex-none" key={i}>
+              <Link href="">
+                <UserInfoBox
+                  following={true}
+                  name={name}
+                  userId={username}
+                  image={image}
+                  size="normal"
+                />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }
