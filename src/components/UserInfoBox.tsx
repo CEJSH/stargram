@@ -1,12 +1,13 @@
 import React from "react";
 import Avatar from "./Avatar";
+export type AvatarSize = "small" | "medium" | "large";
 
 type Props = {
   name: string;
   userId?: string;
   location?: string;
   image?: string;
-  size?: "small" | "normal";
+  size?: AvatarSize;
   following?: boolean;
 };
 
@@ -16,7 +17,7 @@ export default function UserInfoBox({
   userId,
   image,
   following = false,
-  size = "normal",
+  size = "large",
 }: Props) {
   const sizeStyle = following
     ? " md:w-full w-[60px] md:text-start text-center text-ellipsis overflow-hidden whitespace-nowrap"

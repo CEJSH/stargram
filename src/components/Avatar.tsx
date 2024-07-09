@@ -1,16 +1,17 @@
 import Image from "next/image";
 import React from "react";
 import user from "../../public/images/10.jpg";
+import { AvatarSize } from "./UserInfoBox";
 type Props = {
   image?: string | null;
-  size?: "smaller" | "small" | "normal";
+  size?: AvatarSize;
   highlight?: boolean;
 };
 // 구글 통해서 전해지는 url은 NextImage 쓸 수 없으므로 img 태그 씀
 
 export default function Avatar({
   image,
-  size = "normal",
+  size = "large",
   highlight = false,
 }: Props) {
   return (
@@ -41,21 +42,34 @@ export default function Avatar({
   );
 }
 
-function getContainerStyle(size: string, highlight: boolean): string {
+function getContainerStyle(size: AvatarSize, highlight: boolean): string {
   const baseStyle = "flex rounded-full justify-center items-center p-[0.12rem]";
   const highlightStyle = highlight
     ? "bg-gradient-to-bl from-fuchsia-600 to-amber-300"
     : "";
-  const sizeStyle = size === "small" ? "w-10 h-10" : "w-13 h-13";
+  const sizeStyle = getContainerSize(size);
   return `${baseStyle} ${highlightStyle} ${sizeStyle}`;
 }
 
-function getImageSizeStyle(size: string, highlight: boolean): string {
-  const highlightStyle = highlight ? "bg-white" : "";
-  const sizeStyle =
-    size === "small"
-      ? "w-[36px] h-[36px] p-[0.08rem]"
-      : `w-[54px] h-[54px] p-[0.15rem]`;
+function getContainerSize(size: AvatarSize): string {
+  switch (size) {
+    case "small":
+      return "w-10 h-10";
+    case "medium":
+      return "w-12 h-12";
+    case "large":
+      return "w-13 h-13";
+  }
+}
 
-  return `${highlightStyle} ${sizeStyle}`;
+function getImageSizeStyle(size: AvatarSize, highlight: boolean): string {
+  const highlightStyle = highlight ? "bg-white" : "";
+  switch (size) {
+    case "small":
+      return `${highlightStyle} w-[36px] h-[36px] p-[0.08rem]`;
+    case "medium":
+      return `${highlightStyle} w-[48px] h-[48px] p-[0.15rem]`;
+    case "large":
+      return `${highlightStyle} w-[54px] h-[54px] p-[0.15rem]`;
+  }
 }

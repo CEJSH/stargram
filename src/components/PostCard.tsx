@@ -1,21 +1,36 @@
 import Image from "next/image";
 import React from "react";
-import chanyoung from "../../public/images/4.jpg";
 import UserInfoBox from "./UserInfoBox";
-import PostInfoBox from "./PostInfoBox";
+import PostInfoBox from "./ActionBar";
+import { SimplePost } from "@/model/post";
+import CommentForm from "./CommentForm";
+import ActionBar from "./ActionBar";
 
-export default function PostCard() {
+type Props = {
+  post: SimplePost;
+  priority?: boolean;
+};
+
+export default function PostCard({ post, priority = false }: Props) {
+  const { userImage, username, image, createdAt, likes, text } = post;
   return (
-    <section className="text-[14px] rounded-2xl bg-white w-full h-[640px] flex flex-col px-[12px] py-[16px] pt-[8px] gap-[8px]">
-      <UserInfoBox name={""} image={""} />
+    <article className="text-[14px] rounded-2xl bg-white w-full max-h-[740px] flex flex-col px-[10px] pt-[10px] pb-[8px] gap-[8px]">
+      <UserInfoBox userId={username} image={userImage} name={""} />
       <Image
-        className="w-full object-cover h-[420px] rounded-2xl"
-        src={chanyoung}
-        alt="chanyoung"
-        width={300}
-        height={300}
+        priority={priority}
+        className="w-full aspect-square object-cover rounded-2xl"
+        src={image}
+        alt={`photo by ${username}`}
+        width={500}
+        height={420}
       />
-      <PostInfoBox />
-    </section>
+      <ActionBar
+        userId={username}
+        likes={likes}
+        text={text}
+        createdAt={createdAt}
+      />
+      <CommentForm userImage={userImage} />
+    </article>
   );
 }
