@@ -2,7 +2,6 @@
 import useSWR from "swr";
 import PostCard from "./PostCard";
 import { SimplePost } from "@/model/post";
-import { GridLoader } from "react-spinners";
 import GridSpinner from "./ui/GridSpinner";
 
 export default function PostList({ className }: { className: string }) {

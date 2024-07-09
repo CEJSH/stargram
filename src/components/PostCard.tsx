@@ -1,7 +1,7 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import UserInfoBox from "./UserInfoBox";
-import PostInfoBox from "./ActionBar";
 import { SimplePost } from "@/model/post";
 import CommentForm from "./CommentForm";
 import ActionBar from "./ActionBar";
@@ -13,6 +13,7 @@ type Props = {
 
 export default function PostCard({ post, priority = false }: Props) {
   const { userImage, username, image, createdAt, likes, text } = post;
+  const [openModal, setOpenModal] = useState(false);
   return (
     <article className="text-[14px] rounded-2xl bg-white w-full max-h-[740px] flex flex-col px-[10px] pt-[10px] pb-[8px] gap-[8px]">
       <UserInfoBox userId={username} image={userImage} name={""} />
