@@ -9,14 +9,23 @@ import { parseDate } from "@/util/date";
 
 type Props = {
   userId: string;
-  likes?: string[];
-  text: string;
   createdAt: string;
+  likes?: string[];
+  text?: string;
+  className?: string;
 };
 
-export default function ActionBar({ userId, likes, text, createdAt }: Props) {
+export default function ActionBar({
+  userId,
+  likes,
+  text,
+  createdAt,
+  className,
+}: Props) {
   return (
-    <section className="flex flex-col gap-[10px] h-full w-full p-[4px]">
+    <section
+      className={"flex flex-col gap-[10px] h-fit w-full p-[4px] " + className}
+    >
       <div className="flex flex-row justify-between">
         <div className="flex flex-row items-center gap-[16px]">
           <div className="cursor-pointer flex flex-row gap-[2px] items-center rounded-2xl border-fuchsia-600 border-[1px] px-[8px] py-[4px] border-solid">
@@ -51,10 +60,12 @@ export default function ActionBar({ userId, likes, text, createdAt }: Props) {
         </div>
       )}
       <div>
-        <p>
-          <span className="font-[600] mr-[4px]">{userId}</span>
-          {text}
-        </p>
+        {text && (
+          <p>
+            <span className="font-[600] mr-[4px]">{userId}</span>
+            {text}
+          </p>
+        )}
         <span className="text-[#9e9ea7] text-[12px]">
           {parseDate(createdAt)}
         </span>

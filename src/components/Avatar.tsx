@@ -66,10 +66,10 @@ function getImageSizeStyle(size: AvatarSize, highlight: boolean): string {
   const highlightStyle = highlight ? "bg-white" : "";
   switch (size) {
     case "small":
-      return `${highlightStyle} w-[36px] h-[36px] p-[0.08rem]`;
+      return `${highlightStyle} w-[38px] h-[38px] p-[0.08rem]`;
     case "medium":
-      return `${highlightStyle} w-[48px] h-[48px] p-[0.15rem]`;
+      return `${highlightStyle} w-[48px] h-[48px] p-[0.12rem]`;
     case "large":
-      return `${highlightStyle} w-[54px] h-[54px] p-[0.15rem]`;
+      return `${highlightStyle} w-[56px] h-[56px] p-[0.12rem]`;
   }
 }

@@ -42,16 +42,18 @@ export default function NavBar() {
       <Link href="/" className="cursor-pointer font-[700] text-[26px]">
         <h1>Instagram</h1>
       </Link>
-      <div className="relative h-full flex items-center min-w-1/3 w-1/3">
-        <input
-          type="text"
-          className="bg-[#f3f3f4] rounded-2xl h-3/5 pl-[46px] text-[14px] w-full"
-          placeholder="Search"
-        />
-        <div className="absolute left-6">
-          <HiMiniMagnifyingGlass />
+      {/* {pathname.includes("/search") && (
+        <div className="relative h-full flex items-center min-w-1/3 w-1/3">
+          <input
+            type="text"
+            className="bg-[#f3f3f4] rounded-2xl h-3/5 pl-[46px] text-[14px] w-full"
+            placeholder="Search"
+          />
+          <div className="absolute left-6">
+            <HiMiniMagnifyingGlass />
+          </div>
         </div>
-      </div>
+      )} */}
       <nav className="text-[26px] h-full flex items-center">
         <ul className="flex flex-row items-center gap gap-[16px] ">
           {menu.map((item) => (
@@ -71,7 +73,7 @@ export default function NavBar() {
           <li>
             {session ? (
               <ColorButton
-                className="flex-none text-[14px] font-[400] bg-white rounded-[0.275rem] p-[0.3rem] hover:opacity-90 transition-opacity"
+                className="text-[14px] font-[400] bg-white rounded-[0.275rem] p-[0.3rem] hover:opacity-90 transition-opacity"
                 text="Sign Out"
                 onClick={() => {
                   signOut();
@@ -79,7 +81,7 @@ export default function NavBar() {
               />
             ) : (
               <ColorButton
-                className="flex-none text-[14px] font-[400] bg-white rounded-[0.275rem] p-[0.3rem] hover:opacity-90 transition-opacity"
+                className="text-[14px] font-[400] bg-white rounded-[0.275rem] p-[0.3rem] hover:opacity-90 transition-opacity"
                 text="Sign In"
                 onClick={() => {
                   signIn();

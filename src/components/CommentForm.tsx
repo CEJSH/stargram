@@ -2,9 +2,18 @@ import Image from "next/image";
 import React from "react";
 import SmileIcon from "./ui/icons/SmileIcon";
 
-export default function CommentForm({ userImage }: { userImage: string }) {
+export default function CommentForm({
+  userImage,
+  className,
+}: {
+  userImage: string;
+  className?: string;
+}) {
   return (
-    <form className="flex items-center relative mb-[8px]" action="">
+    <form
+      className={"w-full flex items-center relative mb-[8px] " + className}
+      action=""
+    >
       <Image
         className="object-cover w-[36px] h-[36px] rounded-[50%]"
         src={userImage}

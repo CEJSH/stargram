@@ -1,3 +1,4 @@
+import { ProfileUser } from "@/model/user";
 import { client } from "./sanity";
 type OAuthUser = {
   id: string;
@@ -33,4 +34,48 @@ export async function getUserByUsername(username: String) {
     undefined,
     { cache: "no-store" }
   );
+}
+
+export async function searchUsersBy(keyword?: string) {
+  const query = keyword
+    ? `&& (name match "${keyword}") || (username match "${keyword}")`
+    : "";
+
+  return client
+    .fetch(
+      `*[_type == "user" ${query}] | order(_updatedAt desc) {
+    ...,
+    "id": _id,
+    "following": count(following),
+    "followers": count(followers),
+  }`,
+      undefined,
+      { cache: "no-store" }
+    )
+    .then((users) =>
+      users.map((user: ProfileUser) => ({
+        ...user,
+        following: user.following ?? 0,
+        followers: user.followers ?? 0,
+      }))
+    )
+    .then((posts) =>
+      posts.reduce((accUser: ProfileUser[], currUser: ProfileUser) => {
+        const postExists = accUser.some((user) => user.id === currUser.id);
+        if (postExists) {
+          return accUser;
+        } else {
+          if (currUser.id && currUser.id.startsWith("drafts")) {
+            return [
+              ...accUser,
+              {
+                ...currUser,
+                id: currUser.id.slice(7),
+              },
+            ];
+          }
+          return [...accUser, currUser];
+        }
+      }, [])
+    );
 }

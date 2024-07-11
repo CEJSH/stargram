@@ -7,7 +7,7 @@ type Props = {
 
 export default function ColorButton({ text, onClick, className, type }: Props) {
   return (
-    <div className="flex items-center p-[0.095rem] rounded-md bg-gradient-to-bl from-fuchsia-600 to-amber-300">
+    <div className="w-full flex items-center p-[0.095rem] rounded-md bg-gradient-to-bl from-fuchsia-600 to-amber-300">
       <button type={type} className={className} onClick={onClick}>
         {text}
       </button>

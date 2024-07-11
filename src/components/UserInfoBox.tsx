@@ -9,6 +9,7 @@ type Props = {
   image?: string;
   size?: AvatarSize;
   following?: boolean;
+  className?: string;
 };
 
 export default function UserInfoBox({
@@ -18,17 +19,18 @@ export default function UserInfoBox({
   image,
   following = false,
   size = "large",
+  className,
 }: Props) {
   const sizeStyle = following
     ? " md:w-full w-[60px] md:text-start text-center text-ellipsis overflow-hidden whitespace-nowrap"
     : " md:w-full w-full";
   const avatarBase = "md:w-full flex items-center text-[14px]";
   const avatarContainerStyle = following
-    ? avatarBase + " md:flex-row flex-col md:gap-[12px] gap-[4px]"
-    : avatarBase + " gap-[12px]";
-  console.log(following);
+    ? avatarBase + " md:flex-row flex-col md:gap-[12px] gap-[4px] "
+    : avatarBase + " gap-[12px] ";
+
   return (
-    <div className={avatarContainerStyle}>
+    <div className={avatarContainerStyle + className}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <Avatar size={size} highlight={following} image={image} />
       <div
