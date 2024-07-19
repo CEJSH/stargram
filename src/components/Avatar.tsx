@@ -19,20 +19,18 @@ export default function Avatar({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {!!image ? (
         <img
-          className={`bg-white rounded-full object-cover ${getImageSizeStyle(
-            size,
-            highlight
-          )}`}
+          className={`bg-white rounded-full object-cover ${
+            getImageSizeStyle(size, highlight).image
+          }`}
           src={image ?? undefined}
           alt={"userImg"}
           referrerPolicy="no-referrer"
         />
       ) : (
         <Image
-          className={`object-cover rounded-full ${getImageSizeStyle(
-            size,
-            highlight
-          )}`}
+          className={`object-cover rounded-full ${
+            getImageSizeStyle(size, highlight).image
+          }`}
           src={user}
           alt="user"
           referrerPolicy="no-referrer"
@@ -47,29 +45,42 @@ function getContainerStyle(size: AvatarSize, highlight: boolean): string {
   const highlightStyle = highlight
     ? "bg-gradient-to-bl from-fuchsia-600 to-amber-300"
     : "";
-  const sizeStyle = getContainerSize(size);
-  return `${baseStyle} ${highlightStyle} ${sizeStyle}`;
+  const { container } = getImageSizeStyle(size, highlight);
+  return `${baseStyle} ${highlightStyle} ${container}`;
 }
 
-function getContainerSize(size: AvatarSize): string {
-  switch (size) {
-    case "small":
-      return "w-10 h-10";
-    case "medium":
-      return "w-12 h-12";
-    case "large":
-      return "w-13 h-13";
-  }
-}
+type ImageSizeStyle = {
+  container: string;
+  image: string;
+};
 
-function getImageSizeStyle(size: AvatarSize, highlight: boolean): string {
+function getImageSizeStyle(
+  size: AvatarSize,
+  highlight: boolean
+): ImageSizeStyle {
   const highlightStyle = highlight ? "bg-white" : "";
   switch (size) {
     case "small":
-      return `${highlightStyle} w-[38px] h-[38px] p-[0.08rem]`;
+      return {
+        container: `w-10 h-10`,
+        image: `${highlightStyle} w-[38px] h-[38px] p-[0.08rem]`,
+      };
     case "medium":
-      return `${highlightStyle} w-[48px] h-[48px] p-[0.12rem]`;
+      return {
+        container: `w-12 h-12`,
+        image: `${highlightStyle} w-[48px] h-[48px] p-[0.12rem]`,
+      };
     case "large":
-      return `${highlightStyle} w-[56px] h-[56px] p-[0.12rem]`;
+      return {
+        container: `w-13 h-13`,
+        image: `${highlightStyle} w-[56px] h-[56px] p-[0.12rem]`,
+      };
+    case "x-large":
+      return {
+        container: `md:w-40 md:h-40 w-24 h-24`,
+        image: `${highlightStyle} md:w-[156px] md:h-[156px] w-[98px] h-[98px] p-[0.12rem]`,
+      };
+    default:
+      throw new Error(`Unsupported type size: ${size}`);
   }
 }

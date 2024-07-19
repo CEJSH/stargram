@@ -39,36 +39,38 @@ export default function ActionBar({
           <BookmarkIcon />
         </div>
       </div>
-      {likes && likes?.length > 0 && (
-        <div className="w-full flex gap-[8px]">
-          <Image
-            className="object-cover w-[20px] h-[20px] rounded-[50%]"
-            src={others}
-            alt="user"
-            width={20}
-            height={20}
-          />
-          <div className="flex flex-row gap-[4px] leading-5">
-            <div> Liked by</div>
-            <div className="font-[600]">{`${likes[0]}`}</div>
-            <div className="font-[600]">
-              {likes && likes?.length > 1
-                ? `and ${likes?.length - 1} others`
-                : ""}
+      <div className="flex flex-col gap-0">
+        {likes && likes?.length > 0 && (
+          <div className="w-full flex gap-[8px]">
+            <Image
+              className="object-cover w-[20px] h-[20px] rounded-[50%]"
+              src={others}
+              alt="user"
+              width={20}
+              height={20}
+            />
+            <div className="flex flex-row gap-[4px] leading-5">
+              <div> Liked by</div>
+              <div className="font-[600]">{`${likes[0]}`}</div>
+              <div className="font-[600]">
+                {likes && likes?.length > 1
+                  ? `and ${likes?.length - 1} others`
+                  : ""}
+              </div>
             </div>
           </div>
-        </div>
-      )}
-      <div>
-        {text && (
-          <p>
-            <span className="font-[600] mr-[4px]">{userId}</span>
-            {text}
-          </p>
         )}
-        <span className="text-[#9e9ea7] text-[12px]">
-          {parseDate(createdAt)}
-        </span>
+        <div>
+          {text && (
+            <p className="mt-[4px]">
+              <span className="font-[600] mr-[4px]">{userId}</span>
+              {text}
+            </p>
+          )}
+          <span className="text-[#9e9ea7] text-[12px]">
+            {parseDate(createdAt)}
+          </span>
+        </div>
       </div>
     </section>
   );

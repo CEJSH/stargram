@@ -1,10 +1,10 @@
-import { ProfileUser } from "@/model/user";
+import { SearchUser } from "@/model/user";
 import Link from "next/link";
 import React from "react";
 import Avatar from "./Avatar";
 
 type Props = {
-  user: ProfileUser;
+  user: SearchUser;
 };
 // Link태그가 사용자 브라우저에 보여주면 Next.js는 먼저 경로에 해당하는 것을 프리페칭해서 가지고 온다
 

@@ -11,7 +11,7 @@ export default function CommentForm({
 }) {
   return (
     <form
-      className={"w-full flex items-center relative mb-[8px] " + className}
+      className={"w-full flex items-center mb-[8px] " + className}
       action=""
     >
       <Image
@@ -21,12 +21,14 @@ export default function CommentForm({
         width={36}
         height={36}
       />
-      <input
-        className="text-[12px] flex-1 mr-3 border-none bg-[#f3f3f4] p-[8px] px-[20px] ml-[8px] rounded-full"
-        type="text"
-        placeholder="Add a comment..."
-      />
-      <SmileIcon className="absolute right-[64px] text-gray-600" />
+      <div className="relative flex-1">
+        <input
+          className="text-[12px] w-[96%] mr-3 border-none bg-[#f3f3f4] p-[8px] px-[20px] ml-[8px] rounded-full"
+          type="text"
+          placeholder="Add a comment..."
+        />
+        <SmileIcon className="absolute right-[20px] top-[5px] text-gray-600" />
+      </div>
       <button className="text-sky-500 font-bold text-[15px]">Post</button>
     </form>
   );

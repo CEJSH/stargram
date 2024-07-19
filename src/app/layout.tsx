@@ -26,7 +26,7 @@ export default function RootLayout({
               <NavBar />
             </div>
           </header>
-          <main>
+          <main className="h-full w-full">
             <SWRConfigContext>{children}</SWRConfigContext>
           </main>
         </AuthContext>

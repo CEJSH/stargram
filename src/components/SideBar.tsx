@@ -1,9 +1,9 @@
-import { User } from "@/model/user";
+import { AuthUser } from "@/model/user";
 import React from "react";
 import UserInfoBox from "./UserInfoBox";
 
 type Props = {
-  user: User;
+  user: AuthUser;
   className: string;
 };
 

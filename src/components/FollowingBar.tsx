@@ -2,12 +2,12 @@
 import React from "react";
 import UserInfoBox from "./UserInfoBox";
 import useSWR from "swr";
-import { DetailUser } from "@/model/user";
+import { HomeUser } from "@/model/user";
 import { PropagateLoader } from "react-spinners";
 import Link from "next/link";
 
 export default function FollowingBar({ className }: { className: string }) {
-  const { data, isLoading: loading, error } = useSWR<DetailUser>("/api/me");
+  const { data, isLoading: loading, error } = useSWR<HomeUser>("/api/me");
   const users = data?.following && [
     ...data?.following,
     ...data?.following,

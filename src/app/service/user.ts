@@ -1,4 +1,4 @@
-import { ProfileUser } from "@/model/user";
+import { SearchUser } from "@/model/user";
 import { client } from "./sanity";
 type OAuthUser = {
   id: string;
@@ -36,6 +36,20 @@ export async function getUserByUsername(username: String) {
   );
 }
 
+export async function getUserDataBy(username: String) {
+  return client.fetch(
+    `*[_type == "user" && username == "${username}"][0]{
+    ...,
+    "id":_id,
+    following[]->{username,image,name},
+    followers[]->{username,image,name},
+    "bookmarks":bookmarks[]->_id
+  }`,
+    undefined,
+    { cache: "no-store" }
+  );
+}
+
 export async function searchUsersBy(keyword?: string) {
   const query = keyword
     ? `&& (name match "${keyword}") || (username match "${keyword}")`
@@ -53,14 +67,14 @@ export async function searchUsersBy(keyword?: string) {
       { cache: "no-store" }
     )
     .then((users) =>
-      users.map((user: ProfileUser) => ({
+      users.map((user: SearchUser) => ({
         ...user,
         following: user.following ?? 0,
         followers: user.followers ?? 0,
       }))
     )
     .then((posts) =>
-      posts.reduce((accUser: ProfileUser[], currUser: ProfileUser) => {
+      posts.reduce((accUser: SearchUser[], currUser: SearchUser) => {
         const postExists = accUser.some((user) => user.id === currUser.id);
         if (postExists) {
           return accUser;
@@ -78,4 +92,25 @@ export async function searchUsersBy(keyword?: string) {
         }
       }, [])
     );
+}
+
+export async function getUserForProfile(username: string) {
+  return client
+    .fetch(
+      `
+    *[_type == "user" && username == "${username}"][0]{
+    ...,
+    "id":_id,
+    "following": count(following),
+    "followers": count(followers),
+    "posts": count(*[_type =="post" && author->username == "${username}"])
+    }
+    `
+    )
+    .then((user) => ({
+      ...user,
+      following: user.following ?? 0,
+      followers: user.followers ?? 0,
+      posts: user.posts ?? 0,
+    }));
 }

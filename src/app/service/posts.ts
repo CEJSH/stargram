@@ -20,26 +20,7 @@ export async function getFollowingPostsOf(username: string) {
      || author._ref in *[_type == "user" && username == "${username}"].following[]._ref]
      | order(_updatedAt desc){${simplePostProjection}}`
     )
-    .then((posts) =>
-      posts.reduce((accPost: SimplePost[], currPost: SimplePost) => {
-        const postExists = accPost.some((post) => post.id === currPost.id);
-        if (postExists) {
-          return accPost;
-        } else {
-          if (currPost.id.startsWith("drafts")) {
-            return [
-              ...accPost,
-              {
-                ...currPost,
-                image: urlFor(currPost.image),
-                id: currPost.id.slice(7),
-              },
-            ];
-          }
-          return [...accPost, { ...currPost, image: urlFor(currPost.image) }];
-        }
-      }, [])
-    );
+    .then(mapPosts);
 }
 
 export async function getPost(id: string) {
@@ -59,4 +40,54 @@ export async function getPost(id: string) {
   `
     )
     .then((post) => ({ ...post, image: urlFor(post.image) }));
+}
+
+export async function getPostsOf(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && author->username == "${username}"]
+    | order(_createdAt desc){
+    ${simplePostProjection}}`
+    )
+    .then(mapPosts);
+}
+
+export async function getLikedPostsOf(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && "${username}" in likes[]->username]
+    | order(_createdAt desc){
+    ${simplePostProjection}}`
+    )
+    .then(mapPosts);
+}
+
+export async function getBookMarkedPostsOf(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && _id in *[_type=="user" && username=="${username}"].bookmarks[]._ref] | order(_createdAt desc){
+    ${simplePostProjection}}`
+    )
+    .then(mapPosts);
+}
+
+function mapPosts(posts: SimplePost[]) {
+  return posts.reduce((accPost: SimplePost[], currPost: SimplePost) => {
+    const postExists = accPost.some((post) => post.id === currPost.id);
+    if (postExists) {
+      return accPost;
+    } else {
+      if (currPost.id.startsWith("drafts")) {
+        return [
+          ...accPost,
+          {
+            ...currPost,
+            image: urlFor(currPost.image),
+            id: currPost.id.slice(7),
+          },
+        ];
+      }
+      return [...accPost, { ...currPost, image: urlFor(currPost.image) }];
+    }
+  }, []);
 }

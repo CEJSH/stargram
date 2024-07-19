@@ -1,9 +1,10 @@
 import React from "react";
 import Avatar from "./Avatar";
-export type AvatarSize = "small" | "medium" | "large";
+export type AvatarSize = "small" | "medium" | "large" | "x-large";
 
 type Props = {
   name: string;
+  onlyId?: boolean;
   userId?: string;
   location?: string;
   image?: string;
@@ -15,6 +16,7 @@ type Props = {
 export default function UserInfoBox({
   name,
   location,
+  onlyId,
   userId,
   image,
   following = false,
@@ -36,16 +38,16 @@ export default function UserInfoBox({
       <div
         className={`flex flex-col md:items-start items-center gap-0 md:gap-[0.15rem] leading-5`}
       >
-        <p
-          className={`${sizeStyle} font-[600] text-[14px] md:text-[15px] text-[#1c1e21]`}
-        >
+        <p className={`${sizeStyle} font-[600] text-[14px] text-[#1c1e21]`}>
           {userId || "Anton"}
         </p>
-        <div
-          className={`${sizeStyle} text-[#9e9ea7] text-[13px] md:text-[14px] md:block hidden`}
-        >
-          {location || name || "New Jersey, USA"}
-        </div>
+        {onlyId ?? (
+          <div
+            className={`${sizeStyle} text-[#9e9ea7] text-[13px] md:text-[14px] md:block hidden`}
+          >
+            {location || name || "New Jersey, USA"}
+          </div>
+        )}
       </div>
     </div>
   );

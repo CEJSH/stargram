@@ -1,5 +1,5 @@
 "use client";
-import { ProfileUser } from "@/model/user";
+import { SearchUser } from "@/model/user";
 import React, { FormEvent, useState } from "react";
 import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 import useSWR from "swr";
@@ -18,7 +18,7 @@ export default function UserSearch() {
     data: users,
     isLoading,
     error,
-  } = useSWR<ProfileUser[]>(`/api/search/${debouncedKeyword}`);
+  } = useSWR<SearchUser[]>(`/api/search/${debouncedKeyword}`);
   const onSubmit = (e: FormEvent) => {
     e.preventDefault;
   };

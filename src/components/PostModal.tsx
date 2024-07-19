@@ -16,12 +16,14 @@ export default function PostModal({ onClose, children }: Props) {
       }}
     >
       <button
-        className="fixed top-0 right-0 p-8 text-white"
+        className="fixed top-0 right-0 p-4 text-white"
         onClick={() => onClose()}
       >
         <CloseButton />
       </button>
-      <div className="bg-white w-3/5 h-3/4 max-w-7xl">{children}</div>
+      <div className="bg-white w-[76%] h-[95%] max-w-7xl rounded-r">
+        {children}
+      </div>
     </section>
   );
 }
