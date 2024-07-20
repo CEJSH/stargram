@@ -1,25 +1,40 @@
 import { getUserForProfile } from "@/app/service/user";
 import UserPosts from "@/components/UserPosts";
 import UserProfile from "@/components/UserProfile";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 
 type Props = { params: { username: string } };
+
+// 동일한 사용자에 한해 캐시된 결과를 사용하도록..
+const getUser = cache(async (username: string) => getUserForProfile(username));
 
 export default async function UserPage({ params: { username } }: Props) {
   // 상단: 사용자의 프로필 이미지와 정보(username, name, 숫자)
   // 하단: 3개의 탭(posts, liked, bookmarks)
 
-  const user = await getUserForProfile(username);
-  console.log("profile", user);
+  const user = await getUser(username);
+
   if (!user) {
     notFound();
   }
   return (
     <div className="w-full h-full min-h-[100vh] flex flex-col grow items-center justify-center">
-      <div className="flex flex-col bg-white h-full pt-[30px] mb-[30px] max-w-[935px] w-[calc(100%-40px)] mt-[32px] rounded-xl px-[20px] grow-1">
+      <div className="min-w-[500px] bg-white h-full pt-[30px] mb-[30px] max-w-[935px] w-[calc(100%-40px)] mt-[32px] rounded-xl px-[20px]">
         <UserProfile user={user} />
         <UserPosts user={user} />
       </div>
     </div>
   );
+}
+
+export async function generateMetadata({
+  params: { username },
+}: Props): Promise<Metadata> {
+  const user = await getUser(username);
+  return {
+    title: `${user?.name} (@${user?.username}) · Eunstagram Photos`,
+    description: `${user?.name}'s all Eunstagram Posts`,
+  };
 }

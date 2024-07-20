@@ -1,6 +1,12 @@
-"use client";
 import UserSearch from "@/components/UserSearch";
-import React from "react";
+import { Metadata } from "next";
+
+export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "User Search",
+  description: "Search users to follow",
+};
 
 export default function SearchPage() {
   return (

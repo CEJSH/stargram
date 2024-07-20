@@ -4,6 +4,12 @@ import { signIn, providerMap, auth } from "../../../auth";
 import { AuthError } from "next-auth";
 import Image from "next/image";
 import ColorButton from "@/components/ui/ColorButton";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Sign in",
+  description: "Sign up or Login to Eunstagram",
+};
 
 export default async function SignInPage({
   searchParams,

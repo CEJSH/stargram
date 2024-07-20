@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
-  getBookMarkedPostsOf,
+  getSavedPostsOf,
   getLikedPostsOf,
   getPostsOf,
 } from "@/app/service/posts";
@@ -20,8 +20,8 @@ export async function GET(_: NextRequest, context: Context) {
 
   // 우선 쿼리가 뭐냐에따라 어떤 걸 호출할지 정해줄 것임.
   let request = getPostsOf;
-  if (query === "bookMarked") {
-    request = getBookMarkedPostsOf;
+  if (query === "saved") {
+    request = getSavedPostsOf;
   } else if (query === "liked") {
     request = getLikedPostsOf;
   }
