@@ -14,7 +14,6 @@ type Props = {
 
 export default function PostDetail({ post }: Props) {
   const { id, userImage, username, image, createdAt, likes } = post;
-  // comment!
   const { data } = useSWR<FullPost>(`/api/posts/${id}`);
   const comments = data?.comments;
   // 이미지 크기 -> 너비는 지정하되 높이는 부모에 따라 달라질 수 있도록
@@ -28,6 +27,7 @@ export default function PostDetail({ post }: Props) {
           priority
           fill
           sizes={"800px"}
+          loading="eager"
         />
       </div>
       <div className="w-full basis-[43.5%] flex flex-col">

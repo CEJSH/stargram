@@ -15,7 +15,7 @@ export default function SideBar({
     <section
       className={
         className +
-        " text-[12px] text-[#c7c7c7] md:px-[32px] px-[8px] md:mx-[24px] mx-[16px] gap-[16px]"
+        " text-[12px] text-[#c7c7c7] md:px-[32px] px-[8px] gap-[16px]"
       }
     >
       <UserInfoBox name={name} userId={username} image={image} />

@@ -36,6 +36,7 @@ export default function PostCard({ post, priority = false }: Props) {
         likes={likes}
         text={text}
         createdAt={createdAt}
+        likeHandler={() => {}}
       />
       <CommentForm userImage={userImage} />
       {openModal && (

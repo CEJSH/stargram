@@ -1,11 +1,13 @@
 import Image from "next/image";
-import React from "react";
 import others from "../../public/images/12.jpg";
 import BookmarkIcon from "./ui/icons/BookmarkIcon";
 import HeartIcon from "./ui/icons/HeartIcon";
 import MessageIcon from "./ui/icons/MessageIcon";
 import SendIcon from "./ui/icons/SendIcon";
 import { parseDate } from "@/util/date";
+import { useState } from "react";
+import ToggleButton from "./ui/ToggleButton";
+import HeartFillIcon from "./ui/icons/HeartFillIcon";
 
 type Props = {
   userId: string;
@@ -13,6 +15,7 @@ type Props = {
   likes?: string[];
   text?: string;
   className?: string;
+  likeHandler: () => void;
 };
 
 export default function ActionBar({
@@ -21,16 +24,29 @@ export default function ActionBar({
   text,
   createdAt,
   className,
+  likeHandler,
 }: Props) {
+  const [liked, setLiked] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
   return (
     <section
       className={"flex flex-col gap-[10px] h-fit w-full p-[4px] " + className}
     >
       <div className="flex flex-row justify-between">
         <div className="flex flex-row items-center gap-[16px]">
-          <div className="cursor-pointer flex flex-row gap-[2px] items-center rounded-2xl border-fuchsia-600 border-[1px] px-[8px] py-[4px] border-solid">
-            <HeartIcon />
-            <div>123</div>
+          <div
+            onClick={likeHandler}
+            className="cursor-pointer flex flex-row gap-[2px] items-center rounded-2xl border-fuchsia-600 border-[1px] px-[8px] py-[4px] border-solid"
+          >
+            {
+              <ToggleButton
+                toggled={liked}
+                onToggle={setLiked}
+                onIcon={<HeartFillIcon />}
+                offIcon={<HeartIcon />}
+              />
+            }
+            <div>{likes && likes.length}</div>
           </div>
           <MessageIcon />
           <SendIcon />
