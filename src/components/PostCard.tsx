@@ -31,13 +31,7 @@ export default function PostCard({ post, priority = false }: Props) {
         width={500}
         height={420}
       />
-      <ActionBar
-        userId={username}
-        likes={likes}
-        text={text}
-        createdAt={createdAt}
-        likeHandler={() => {}}
-      />
+      <ActionBar post={post} />
       <CommentForm userImage={userImage} />
       {openModal && (
         <ModalPortal>

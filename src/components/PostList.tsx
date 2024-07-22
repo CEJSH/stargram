@@ -1,17 +1,10 @@
 "use client";
-import useSWR from "swr";
 import PostCard from "./PostCard";
-import { SimplePost } from "@/model/post";
 import GridSpinner from "./ui/GridSpinner";
+import usePosts from "@/hooks/posts";
 
 export default function PostList({ className }: { className: string }) {
-  const {
-    data: posts,
-    isLoading: loading,
-    error,
-  } = useSWR<SimplePost[]>("/api/posts");
-
-  console.log(posts);
+  const { posts, isLoading: loading } = usePosts();
 
   return (
     <section className={className + " overflow-auto gap-[16px]"}>

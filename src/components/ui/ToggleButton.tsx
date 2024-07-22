@@ -12,7 +12,7 @@ export default function ToggleButton({
   offIcon,
 }: Props) {
   return (
-    <button onClick={() => onToggle(!toggled)}>
+    <button className="cursor-pointer" onClick={() => onToggle(!toggled)}>
       {toggled ? onIcon : offIcon}
     </button>
   );

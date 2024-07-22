@@ -73,9 +73,7 @@ export default function PostDetail({ post }: Props) {
           className={
             "!p-4 !pb-1 text-[14px] gap-[8px] border-solid border-t-[1px]"
           }
-          likes={likes}
-          userId={username}
-          createdAt={createdAt}
+          post={post}
         />
         <CommentForm
           className={"px-4 py-2 text-[14px]"}

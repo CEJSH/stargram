@@ -8,51 +8,53 @@ import { parseDate } from "@/util/date";
 import { useState } from "react";
 import ToggleButton from "./ui/ToggleButton";
 import HeartFillIcon from "./ui/icons/HeartFillIcon";
+import BookmarkFillIcon from "./ui/icons/BookmarkFillIcon";
+import { SimplePost } from "@/model/post";
+import { useSession } from "next-auth/react";
+import usePosts from "@/hooks/posts";
 
 type Props = {
-  userId: string;
-  createdAt: string;
-  likes?: string[];
-  text?: string;
+  post: SimplePost;
   className?: string;
-  likeHandler: () => void;
 };
 
-export default function ActionBar({
-  userId,
-  likes,
-  text,
-  createdAt,
-  className,
-  likeHandler,
-}: Props) {
-  const [liked, setLiked] = useState(false);
+export default function ActionBar({ post, className }: Props) {
+  const { id, likes, username, text, createdAt } = post;
+  const { data: session } = useSession();
+  const user = session?.user;
+  const liked = user ? likes.includes(user.username) : false;
   const [bookmarked, setBookmarked] = useState(false);
+  const { setLike } = usePosts();
+  const handleLike = (like: boolean) => {
+    if (user) {
+      setLike(post, user.username, like);
+    }
+  };
   return (
     <section
       className={"flex flex-col gap-[10px] h-fit w-full p-[4px] " + className}
     >
       <div className="flex flex-row justify-between">
         <div className="flex flex-row items-center gap-[16px]">
-          <div
-            onClick={likeHandler}
-            className="cursor-pointer flex flex-row gap-[2px] items-center rounded-2xl border-fuchsia-600 border-[1px] px-[8px] py-[4px] border-solid"
-          >
-            {
-              <ToggleButton
-                toggled={liked}
-                onToggle={setLiked}
-                onIcon={<HeartFillIcon />}
-                offIcon={<HeartIcon />}
-              />
-            }
+          <div className="flex flex-row gap-[2px] items-center rounded-2xl border-fuchsia-600 border-[1px] px-[8px] py-[4px] border-solid">
+            <ToggleButton
+              toggled={liked}
+              onToggle={handleLike}
+              onIcon={<HeartFillIcon />}
+              offIcon={<HeartIcon />}
+            />
             <div>{likes && likes.length}</div>
           </div>
           <MessageIcon />
           <SendIcon />
         </div>
         <div className="flex items-center">
-          <BookmarkIcon />
+          <ToggleButton
+            toggled={bookmarked}
+            onToggle={setBookmarked}
+            onIcon={<BookmarkFillIcon />}
+            offIcon={<BookmarkIcon />}
+          />
         </div>
       </div>
       <div className="flex flex-col gap-0">
@@ -79,7 +81,7 @@ export default function ActionBar({
         <div>
           {text && (
             <p className="mt-[4px]">
-              <span className="font-[600] mr-[4px]">{userId}</span>
+              <span className="font-[600] mr-[4px]">{username}</span>
               {text}
             </p>
           )}

@@ -18,7 +18,7 @@ export async function getFollowingPostsOf(username: string) {
     .fetch(
       `*[_type =="post" && author->username == "${username}"
      || author._ref in *[_type == "user" && username == "${username}"].following[]._ref]
-     | order(_updatedAt desc){${simplePostProjection}}`
+     | order(_createdAt desc){${simplePostProjection}}`
     )
     .then(mapPosts);
 }
@@ -71,23 +71,60 @@ export async function getSavedPostsOf(username: string) {
     .then(mapPosts);
 }
 
+// function mapPosts(posts: SimplePost[]) {
+//   return posts.reduce((accPost: SimplePost[], currPost: SimplePost) => {
+//     const postExists = accPost.some((post) => post.id === currPost.id);
+//     if (postExists) {
+//       return accPost;
+//     } else {
+//       if (currPost.id.startsWith("drafts")) {
+//         console.log("draft", currPost.comments);
+//         return [
+//           ...accPost,
+//           {
+//             ...currPost,
+//             likes: currPost.likes ?? [],
+//             image: urlFor(currPost.image),
+//             id: currPost.id.slice(7),
+//           },
+//         ];
+//       }
+//       return [
+//         ...accPost,
+//         {
+//           ...currPost,
+//           likes: currPost.likes ?? [],
+//           image: urlFor(currPost.image),
+//         },
+//       ];
+//     }
+//   }, []);c v
+// }
+
 function mapPosts(posts: SimplePost[]) {
-  return posts.reduce((accPost: SimplePost[], currPost: SimplePost) => {
-    const postExists = accPost.some((post) => post.id === currPost.id);
-    if (postExists) {
-      return accPost;
-    } else {
-      if (currPost.id.startsWith("drafts")) {
-        return [
-          ...accPost,
-          {
-            ...currPost,
-            image: urlFor(currPost.image),
-            id: currPost.id.slice(7),
-          },
-        ];
-      }
-      return [...accPost, { ...currPost, image: urlFor(currPost.image) }];
-    }
-  }, []);
+  return posts.map((post: SimplePost) => ({
+    ...post,
+    likes: post.likes ?? [],
+    image: urlFor(post.image),
+  }));
+}
+
+export async function likePost(postId: string, userId: string) {
+  return client
+    .patch(postId)
+    .setIfMissing({ likes: [] })
+    .append("likes", [
+      {
+        _ref: userId,
+        _type: "reference",
+      },
+    ])
+    .commit({ autoGenerateArrayKeys: true });
+}
+
+export async function dislikePost(postId: string, userId: string) {
+  return client
+    .patch(postId)
+    .unset([`likes[_ref=="${userId}"]`])
+    .commit();
 }
