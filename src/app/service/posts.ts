@@ -71,7 +71,7 @@ export async function getSavedPostsOf(username: string) {
     .then(mapPosts);
 }
 
-// function mapPosts(posts: SimplePost[]) {
+export // function mapPosts(posts: SimplePost[]) {
 //   return posts.reduce((accPost: SimplePost[], currPost: SimplePost) => {
 //     const postExists = accPost.some((post) => post.id === currPost.id);
 //     if (postExists) {

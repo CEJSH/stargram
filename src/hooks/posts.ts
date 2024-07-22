@@ -1,5 +1,5 @@
 import { SimplePost } from "@/model/post";
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 
 // updateLike라는 함수는 단순히 put이라는 리퀘를 하고 그 결과를 반환한다.
 async function updateLike(id: string, like: boolean) {

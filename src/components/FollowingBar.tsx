@@ -1,18 +1,13 @@
 "use client";
 import React from "react";
 import UserInfoBox from "./UserInfoBox";
-import useSWR from "swr";
-import { HomeUser } from "@/model/user";
 import { PropagateLoader } from "react-spinners";
 import Link from "next/link";
+import useMe from "@/hooks/me";
 
 export default function FollowingBar({ className }: { className: string }) {
-  const { data, isLoading: loading, error } = useSWR<HomeUser>("/api/me");
-  const users = data?.following && [
-    ...data?.following,
-    ...data?.following,
-    ...data?.following,
-  ];
+  const { user, isLoading: loading, error } = useMe();
+  const users = user?.following;
   return (
     <section
       className={

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "../../../../auth";
-import { dislikePost, likePost } from "@/app/service/posts";
+import { addBookmark, removeBookmark } from "@/app/service/user";
 
 export async function PUT(req: NextRequest) {
   const session = await auth();
@@ -8,14 +8,14 @@ export async function PUT(req: NextRequest) {
   if (!user) {
     return new Response("Authentication Error", { status: 401 });
   }
-  const { id, like } = await req.json();
+  const { id, bookmark } = await req.json();
 
-  if (!id || like === undefined) {
+  if (!id || bookmark === undefined) {
     return new Response("Bad Request", { status: 400 });
   }
-  const request = like ? likePost : dislikePost;
+  const request = bookmark ? addBookmark : removeBookmark;
 
-  return request(id, user.username)
+  return request(user.username, id)
     .then((res) => NextResponse.json(res))
     .catch((error) => {
       new NextResponse(JSON.stringify(error), { status: 500 });
