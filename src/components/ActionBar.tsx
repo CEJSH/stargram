@@ -5,22 +5,28 @@ import HeartIcon from "./ui/icons/HeartIcon";
 import MessageIcon from "./ui/icons/MessageIcon";
 import SendIcon from "./ui/icons/SendIcon";
 import { parseDate } from "@/util/date";
-import { useState } from "react";
 import ToggleButton from "./ui/ToggleButton";
 import HeartFillIcon from "./ui/icons/HeartFillIcon";
 import BookmarkFillIcon from "./ui/icons/BookmarkFillIcon";
-import { SimplePost } from "@/model/post";
-import { useSession } from "next-auth/react";
+import { Comment, SimplePost } from "@/model/post";
 import usePosts from "@/hooks/posts";
 import useMe from "@/hooks/me";
+import CommentForm from "./CommentForm";
 
 type Props = {
   post: SimplePost;
   className?: string;
+  children?: React.ReactNode;
+  onComment: (comment: Comment) => void;
 };
 
-export default function ActionBar({ post, className }: Props) {
-  const { id, likes, username, text, createdAt } = post;
+export default function ActionBar({
+  post,
+  className,
+  children,
+  onComment,
+}: Props) {
+  const { id, likes, createdAt } = post;
   const { user, setBookmark } = useMe();
   const { setLike } = usePosts();
 
@@ -28,14 +34,15 @@ export default function ActionBar({ post, className }: Props) {
   const bookmarked = user?.bookmarks.includes(id) ?? false;
 
   const handleLike = (like: boolean) => {
-    // if (user) {
-    //   setLike(post, user.username, like);
-    // }
     user && setLike(post, user.username, like);
   };
 
   const handleBookmark = (bookmark: boolean) => {
     user && setBookmark(id, bookmark);
+  };
+
+  const handleComment = (comment: string) => {
+    user && onComment({ comment, username: user.username, image: user.image });
   };
   return (
     <section
@@ -85,18 +92,14 @@ export default function ActionBar({ post, className }: Props) {
             </div>
           </div>
         )}
-        <div>
-          {text && (
-            <p className="mt-[4px]">
-              <span className="font-[600] mr-[4px]">{username}</span>
-              {text}
-            </p>
-          )}
+        <div className="flex flex-col">
+          {children}
           <span className="text-[#9e9ea7] text-[12px]">
             {parseDate(createdAt)}
           </span>
         </div>
       </div>
+      <CommentForm onPostComment={handleComment} userImage={user?.image} />
     </section>
   );
 }

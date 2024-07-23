@@ -1,22 +1,23 @@
-import { FullPost, SimplePost } from "@/model/post";
+import { Comment, FullPost, SimplePost } from "@/model/post";
 import Image from "next/image";
 import React from "react";
-import useSWR from "swr";
 import UserInfoBox from "./UserInfoBox";
 import ActionBar from "./ActionBar";
 import CommentForm from "./CommentForm";
 import Avatar from "./Avatar";
 import { parseDate } from "@/util/date";
+import useFullPost from "@/hooks/post";
 
 type Props = {
   post: SimplePost;
 };
 
 export default function PostDetail({ post }: Props) {
-  const { id, userImage, username, image, createdAt, likes } = post;
-  const { data } = useSWR<FullPost>(`/api/posts/${id}`);
+  const { id, userImage, username, image, createdAt } = post;
+  const { post: data, postComment } = useFullPost(id);
+
   const comments = data?.comments;
-  // 이미지 크기 -> 너비는 지정하되 높이는 부모에 따라 달라질 수 있도록
+
   return (
     <section className="flex w-full h-full">
       <div className="relative basis-[56.5%]">
@@ -74,11 +75,13 @@ export default function PostDetail({ post }: Props) {
             "!p-4 !pb-1 text-[14px] gap-[8px] border-solid border-t-[1px]"
           }
           post={post}
+          onComment={postComment}
         />
-        <CommentForm
+        {/* <CommentForm
+          onPostComment={handlePostComment}
           className={"px-4 py-2 text-[14px]"}
           userImage={userImage}
-        />
+        /> */}
       </div>
     </section>
   );

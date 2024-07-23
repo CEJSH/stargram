@@ -1,4 +1,5 @@
 import { HomeUser } from "@/model/user";
+import { useCallback } from "react";
 import useSWR from "swr";
 
 async function updateBookmark(postId: string, bookmark: boolean) {
@@ -11,25 +12,29 @@ async function updateBookmark(postId: string, bookmark: boolean) {
 export default function useMe() {
   const { data: user, isLoading, error, mutate } = useSWR<HomeUser>("/api/me");
 
-  const setBookmark = (postId: string, bookmark: boolean) => {
-    // 로컬상으로 업데이트 할 변경된 포스트의 배열 ( newPosts(&newPost) )
-    // 바운드된 mutate함수 호출 (이 때, 첫번째 인자값으로 fetch함수를 전달하면 여기서 반환된 값으로 바운드된 mutate /api/posts데이터를 덮어 씌워준다)
-    // 근데 우리가 updateLike를 할 때, 모든 포스트에 있는 데이터들을 가져오는 게 아니라, populateCache를 false로 지정했다.
-    if (!user) return;
-    const bookmarks = user?.bookmarks;
-    const newUser = {
-      ...user,
-      bookmarks: bookmark
-        ? [...bookmarks, postId]
-        : bookmarks.filter((b) => b !== postId),
-    };
-    return mutate(updateBookmark(postId, bookmark), {
-      optimisticData: newUser,
-      populateCache: false,
-      revalidate: false,
-      rollbackOnError: true,
-    });
-  };
+  // setBookmark가 다른 컴포넌트로 전달되면 나중에 커스텀 훅이나 이걸 사용하는 곳에서 상태가 바뀐다면 즉 그 컴포넌트가 리렌더링 된다면,
+  // 새로운 함수가 setBookmark에 할당이 될 거구 그걸 prop으로 전달받는 컴포넌트들도 prop이 바뀌니 다시 모든것들이 리렌더링 될 것.
+  // 리액트의 기본적 내용. 이모든걸 방지하기 위해 useCallback으로 감싸는 게 좋음
+
+  const setBookmark = useCallback(
+    (postId: string, bookmark: boolean) => {
+      if (!user) return;
+      const bookmarks = user?.bookmarks;
+      const newUser = {
+        ...user,
+        bookmarks: bookmark
+          ? [...bookmarks, postId]
+          : bookmarks.filter((b) => b !== postId),
+      };
+      return mutate(updateBookmark(postId, bookmark), {
+        optimisticData: newUser,
+        populateCache: false,
+        revalidate: false,
+        rollbackOnError: true,
+      });
+    },
+    [mutate, user]
+  );
 
   return {
     user,
