@@ -1,12 +1,7 @@
 import { ProfileUser } from "@/model/user";
 import React from "react";
-import PersonIcon from "./ui/icons/PersonIcon";
 import Avatar from "./Avatar";
-import Link from "next/link";
-import GridIcon from "./ui/icons/GridIcon";
-import PlayIcon from "./ui/icons/PlayIcon";
 import FollowButton from "./FollowButton";
-import UserPosts from "./UserPosts";
 
 type Props = {
   user: ProfileUser;
