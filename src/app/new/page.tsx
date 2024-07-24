@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function NewPostPage() {
   const session = await auth();
   if (!session?.user) {
-    redirect("/auth/signin");
+    redirect("/api/auth/signin");
   }
   return <NewPost user={session.user} />;
 }
