@@ -11,6 +11,7 @@ export type SimplePost = Omit<FullPost, "comments"> & {
 export type FullPost = {
   id: string;
   username: string;
+  name: string;
   userImage: string;
   image: string;
   text: string;

@@ -24,7 +24,7 @@ export default function SideBar({
           About · Help · Press · API · Recruit · Policy · Privacy · Terms ·
           Location · Language
         </p>
-        <p>@ 2024 Copyright EUNSTAGRAM from RIIZE</p>
+        <p>@ 2024 Copyright Silvr</p>
       </div>
     </section>
   );

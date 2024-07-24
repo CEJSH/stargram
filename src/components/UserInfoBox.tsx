@@ -19,7 +19,7 @@ export default function UserInfoBox({
   onlyId,
   userId,
   image,
-  following = false,
+  following = true,
   size = "large",
   className,
 }: Props) {
@@ -36,16 +36,16 @@ export default function UserInfoBox({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <Avatar size={size} highlight={following} image={image} />
       <div
-        className={`flex flex-col md:items-start items-center gap-0 md:gap-[0.15rem] leading-5`}
+        className={`flex flex-col md:items-start items-center gap-0 md:gap-[0.17rem] leading-5`}
       >
-        <p className={`${sizeStyle} font-[600] text-[14px] text-[#1c1e21]`}>
+        <p className={`${sizeStyle} font-[600] text-[15px] text-[#1c1e21]`}>
           {userId || "Anton"}
         </p>
         {onlyId ?? (
           <div
-            className={`${sizeStyle} text-[#9e9ea7] text-[13px] md:text-[14px] md:block hidden`}
+            className={`${sizeStyle} text-[#9e9ea7] text-[14px] md:text-[14px] md:block hidden`}
           >
-            {location || name || "New Jersey, USA"}
+            {name || location || "New Jersey, USA"}
           </div>
         )}
       </div>

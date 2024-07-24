@@ -23,7 +23,7 @@ export default async function SignInPage({
   }
   const redirectTo = searchParams.callbackUrl;
   return (
-    <section className="w-full mt-[16px] pb-[16px] h-[calc(100vh-68px-32px)]">
+    <section className="w-full mt-[16px] pb-[16px]">
       <div className="min-w-[400px] flex flex-col h-full bg-white w-1/3 mx-auto rounded-2xl">
         <Image
           className="my-[240px] mx-auto pb-[60px] bg-cover"
@@ -35,7 +35,7 @@ export default async function SignInPage({
         {Object.values(providerMap).map((provider) => (
           <form
             key={""}
-            className="mx-auto cursor-pointer"
+            className="mx-auto cursor-pointer pb-[56px]"
             action={async () => {
               "use server";
               try {

@@ -72,7 +72,7 @@ export default function NewPost({ user: { username, image, name } }: Props) {
   return (
     <section className="w-full flex flex-col justify-center items-center mt-4 bg-white rounded-2xl h-[calc(100vh-124px)]">
       {loading && (
-        <div className="absolute inset-0 z-20 text-center pt-[40%] bg-sky-500/20">
+        <div className="absolute inset-0 z-20 text-center pt-[30%] bg-gray-500/30">
           <GridSpinner />
         </div>
       )}
@@ -93,7 +93,7 @@ export default function NewPost({ user: { username, image, name } }: Props) {
             text="공유하기"
             onClick={() => {}}
             red={false}
-            className="text-sky-400 font-[600] !absolute top-[0.35rem] right-0"
+            className="text-sky-400 font-[600] !absolute top-[0.35rem] right-0 bg-transparent hover:bg-transparent"
           />
         </div>
         <div className="h-full flex flex-row rounded-b-xl overflow-hidden border-[1px] border-[#f3f3f4]">

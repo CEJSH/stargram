@@ -8,6 +8,7 @@ import ModalPortal from "./ui/ModalPortal";
 import PostModal from "./PostModal";
 import PostDetail from "./PostDetail";
 import usePosts from "@/hooks/posts";
+import Link from "next/link";
 
 type Props = {
   post: SimplePost;
@@ -15,7 +16,7 @@ type Props = {
 };
 
 export default function PostCard({ post, priority = false }: Props) {
-  const { userImage, username, image, comments, text } = post;
+  const { userImage, username, name, image, comments, text } = post;
   const [openModal, setOpenModal] = useState(false);
   const { postComment } = usePosts();
 
@@ -25,7 +26,14 @@ export default function PostCard({ post, priority = false }: Props) {
 
   return (
     <article className="text-[14px] rounded-2xl bg-white w-full max-h-[800px] flex flex-col px-[10px] pt-[10px] pb-[8px] gap-[8px]">
-      <UserInfoBox userId={username} image={userImage} name={""} />
+      <Link href={`/user/${username}`} className="w-fit">
+        <UserInfoBox
+          className="w-fit"
+          userId={username}
+          image={userImage}
+          name={name}
+        />
+      </Link>
       <Image
         onClick={() => {
           setOpenModal(true);

@@ -47,10 +47,10 @@ export default function UserProfile({ user }: Props) {
         </ul>
       </section>
       <section className="col-start-2 col-end-3 row-start-3">
-        <div className="font-[500] break-words">{`RIIZE`}</div>
+        <div className="font-[500] break-words">{`FINE`}</div>
       </section>
       {/* {  <section className="col-start-1 col-end-3 row-start-6">5</section>} */}
-      <section className="col-start-1 col-end-3 row-start-5 mt-[44px]"></section>
+      <section className="col-start-1 col-end-3 row-start-5 mt-[36px]"></section>
     </header>
   );
 }

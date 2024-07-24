@@ -7,7 +7,7 @@ export default function PostGrid() {
   return (
     <div className="w-full text-center">
       {isLoading && <GridSpinner />}
-      <ul className="grid grid-cols-3 sm:gap-4 gap-1 sm:py-4 py-0 sm:px-7 px-0">
+      <ul className="grid grid-cols-3 gap-1 sm:py-4 py-0 sm:px-4 px-0">
         {posts &&
           posts.map((post, index) => (
             <li key={post.id}>
