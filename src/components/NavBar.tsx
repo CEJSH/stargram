@@ -20,16 +20,19 @@ const menu = [
     href: "/",
     icon: <HomeIcon />,
     clickedIcon: <HomeFillIcon />,
+    title: "Home",
   },
   {
     href: "/search",
     icon: <SearchIcon />,
     clickedIcon: <SearchFillIcon />,
+    title: "Search users",
   },
   {
     href: "/new",
     icon: <NewIcon />,
     clickedIcon: <NewFillIcon />,
+    title: "New Post",
   },
 ];
 export default function NavBar() {
@@ -39,26 +42,18 @@ export default function NavBar() {
 
   return (
     <div className="h-[68px] w-full flex justify-between items-center px-[32px]">
-      <Link href="/" className="cursor-pointer font-[700] text-[26px]">
+      <Link
+        href="/"
+        aria-label="Home"
+        className="cursor-pointer font-[700] text-[26px]"
+      >
         <h1>Instagram</h1>
       </Link>
-      {/* {pathname.includes("/search") && (
-        <div className="relative h-full flex items-center min-w-1/3 w-1/3">
-          <input
-            type="text"
-            className="bg-[#f3f3f4] rounded-2xl h-3/5 pl-[46px] text-[14px] w-full"
-            placeholder="Search"
-          />
-          <div className="absolute left-6">
-            <HiMiniMagnifyingGlass />
-          </div>
-        </div>
-      )} */}
       <nav className="text-[26px] h-full flex items-center">
         <ul className="flex flex-row items-center gap gap-[16px] ">
           {menu.map((item) => (
             <li key={item.href}>
-              <Link href={item.href}>
+              <Link href={item.href} aria-label={item.title}>
                 {pathname === item.href ? item.clickedIcon : item.icon}
               </Link>
             </li>

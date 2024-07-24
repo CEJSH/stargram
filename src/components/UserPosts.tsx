@@ -12,9 +12,17 @@ type Props = {
   user: ProfileUser;
 };
 const tabs = [
-  { type: "posts", icon: <GridIcon /> },
-  { type: "saved", icon: <BookmarkIcon className="w-3 h-3" /> },
-  { type: "liked", icon: <HeartIcon className="w-4 h-4" /> },
+  { type: "posts", title: "User posts", icon: <GridIcon /> },
+  {
+    type: "saved",
+    title: "Saved posts",
+    icon: <BookmarkIcon className="w-3 h-3" />,
+  },
+  {
+    type: "liked",
+    title: "Liked posts",
+    icon: <HeartIcon className="w-4 h-4" />,
+  },
 ];
 
 export default function UserPosts({ user: { username } }: Props) {
@@ -39,7 +47,7 @@ export default function UserPosts({ user: { username } }: Props) {
               className="!flex justify-center items-center h-[52px] hover:text-[#737373]"
               href=""
             >
-              <button>{icon}</button>
+              <button aria-label={title}>{icon}</button>
               <span className="ml-[6px] hidden md:inline">{type}</span>
             </Link>
           </li>

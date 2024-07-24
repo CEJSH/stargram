@@ -44,7 +44,7 @@ export default function PostCard({ post, priority = false }: Props) {
         </p>
         {comments > 1 && (
           <button
-            className="w-fit text-sky-500 font-[600]"
+            className="w-fit text-sky-700 font-[600] text-[13px] pt-1"
             onClick={() => {
               setOpenModal(true);
             }}

@@ -52,6 +52,7 @@ export default function ActionBar({
         <div className="flex flex-row items-center gap-[16px]">
           <div className="flex flex-row gap-[2px] items-center rounded-2xl border-fuchsia-600 border-[1px] px-[8px] py-[4px] border-solid">
             <ToggleButton
+              title={liked ? "unlike" : "like"}
               toggled={liked}
               onToggle={handleLike}
               onIcon={<HeartFillIcon />}
@@ -64,6 +65,7 @@ export default function ActionBar({
         </div>
         <div className="flex items-center">
           <ToggleButton
+            title={bookmarked ? "unbookmark" : "bookmark"}
             toggled={bookmarked}
             onToggle={handleBookmark}
             onIcon={<BookmarkFillIcon />}
