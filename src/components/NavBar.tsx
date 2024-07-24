@@ -2,7 +2,7 @@
 
 import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 import HomeIcon from "./ui/icons/HomeIcon";
@@ -39,20 +39,23 @@ export default function NavBar() {
   const pathname = usePathname();
   const { data: session } = useSession();
   const user = session?.user;
-
+  console.log(pathname);
   return (
-    <div className="h-[68px] w-full flex justify-between items-center px-[32px]">
+    <div className="h-[68px] w-full flex justify-between items-center md:px-[32px] px-[16px]">
       <Link
         href="/"
         aria-label="Home"
-        className="cursor-pointer font-[700] text-[26px]"
+        className="cursor-pointer font-[700] md:text-[26px] text-[22px]"
       >
         <h1>Instagram</h1>
       </Link>
       <nav className="text-[26px] h-full flex items-center">
         <ul className="flex flex-row items-center gap gap-[16px] ">
           {menu.map((item) => (
-            <li key={item.href}>
+            <li
+              key={item.href}
+              className={`${pathname === item.href && "hidden"}`}
+            >
               <Link href={item.href} aria-label={item.title}>
                 {pathname === item.href ? item.clickedIcon : item.icon}
               </Link>

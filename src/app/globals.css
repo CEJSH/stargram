@@ -11,6 +11,12 @@ body {
   background-color: #f3f3f4;
   padding: 16px;
 }
+@media (max-width: 640px) {
+  /* sm 사이즈 이하일 때 적용될 스타일 */
+  body {
+    padding: 8px; /* sm 사이즈 이하일 때 패딩 사이즈 */
+  }
+}
 
 @layer utilities {
   .text-balance {

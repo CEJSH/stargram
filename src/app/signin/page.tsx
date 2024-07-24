@@ -24,7 +24,7 @@ export default async function SignInPage({
   const redirectTo = searchParams.callbackUrl;
   return (
     <section className="w-full mt-[16px] pb-[16px] h-[calc(100vh-68px-32px)]">
-      <div className="min-w-[420px] flex flex-col h-full bg-white w-1/3 mx-auto rounded-2xl">
+      <div className="min-w-[400px] flex flex-col h-full bg-white w-1/3 mx-auto rounded-2xl">
         <Image
           className="my-[240px] mx-auto pb-[60px] bg-cover"
           alt="signInImage"

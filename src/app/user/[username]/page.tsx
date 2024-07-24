@@ -21,7 +21,7 @@ export default async function UserPage({ params: { username } }: Props) {
   }
   return (
     <section className="overflow-y-auto flex flex-col md:flex-row justify-center max-w-screen-2xl gap-[16px] w-full py-[16px]">
-      <div className="min-w-[500px] bg-white min-h-[100dvh] h-full pt-[30px] mb-[30px] max-w-[935px] w-[calc(100%-40px)] rounded-xl px-[20px]">
+      <div className="min-w-[420px] bg-white min-h-[100dvh] h-full sm:pt-[30px] pt-[24px] sm:mb-[30px] mb-[20px] max-w-[935px] w-[calc(100%-40px)] rounded-xl sm:px-[20px] px-[12px]">
         <UserProfile user={user} />
         <UserPosts user={user} />
       </div>

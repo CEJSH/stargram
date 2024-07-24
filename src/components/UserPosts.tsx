@@ -35,7 +35,7 @@ export default function UserPosts({ user: { username } }: Props) {
       <ul
         className={`flex justify-center uppercase color-500-grey align-center border-solid border-t-[1px] border-t-[#DBDBDB] text-center font-[600] leading-[1px] text-[0.75rem]`}
       >
-        {tabs.map(({ type, icon }) => (
+        {tabs.map(({ type, icon, title }) => (
           <li
             className={`mx-12 px-4 cursor-pointer border-black ${
               type === query && "font-bold border-t"
