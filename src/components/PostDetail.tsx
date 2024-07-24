@@ -1,9 +1,8 @@
-import { Comment, FullPost, SimplePost } from "@/model/post";
+import { SimplePost } from "@/model/post";
 import Image from "next/image";
 import React from "react";
 import UserInfoBox from "./UserInfoBox";
 import ActionBar from "./ActionBar";
-import CommentForm from "./CommentForm";
 import Avatar from "./Avatar";
 import { parseDate } from "@/util/date";
 import useFullPost from "@/hooks/post";
@@ -72,16 +71,11 @@ export default function PostDetail({ post }: Props) {
         </ul>
         <ActionBar
           className={
-            "!p-4 !pb-1 text-[14px] gap-[8px] border-solid border-t-[1px]"
+            "!p-[0.9rem] !pb-1 text-[14px] gap-[8px] border-solid border-t-[1px]"
           }
           post={post}
           onComment={postComment}
         />
-        {/* <CommentForm
-          onPostComment={handlePostComment}
-          className={"px-4 py-2 text-[14px]"}
-          userImage={userImage}
-        /> */}
       </div>
     </section>
   );

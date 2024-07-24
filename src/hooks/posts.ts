@@ -1,3 +1,4 @@
+import { useCacheKeys } from "@/context/CacheKeysContext";
 import { Comment, SimplePost } from "@/model/post";
 import { useCallback } from "react";
 import useSWR from "swr";
@@ -17,12 +18,14 @@ async function addComment(id: string, comment: string) {
 }
 
 export default function usePosts() {
+  const cacheKeys = useCacheKeys();
+  console.log(cacheKeys.postsKey);
   const {
     data: posts,
     isLoading,
     error,
     mutate,
-  } = useSWR<SimplePost[]>("/api/posts");
+  } = useSWR<SimplePost[]>(cacheKeys.postsKey);
 
   const setLike = (post: SimplePost, username: string, like: boolean) => {
     // 로컬상으로 업데이트 할 변경된 포스트의 배열 ( newPosts(&newPost) )

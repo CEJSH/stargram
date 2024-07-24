@@ -7,8 +7,8 @@ type Props = {
 export default function BookmarkFillIcon({ className }: Props) {
   return (
     <RiBookmarkFill
-      style={{ fontSize: "24px", cursor: "pointer" }}
-      className={className || "w-[24px] h-[24px] text-red-500"}
+      style={{ fontSize: "22px", cursor: "pointer" }}
+      className={className || "w-[22px] h-[22px] text-black"}
     />
   );
 }

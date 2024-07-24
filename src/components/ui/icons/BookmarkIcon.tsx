@@ -5,8 +5,8 @@ type Props = {
 export default function BookmarkIcon({ className }: Props) {
   return (
     <FaRegBookmark
-      style={{ fontSize: "22px", cursor: "pointer" }}
-      className={className || "w-[22px] h-[22px]"}
+      style={{ fontSize: "21px", cursor: "pointer" }}
+      className={className || "w-[20px] h-[20px]"}
     />
   );
 }
