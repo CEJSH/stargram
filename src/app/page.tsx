@@ -8,7 +8,7 @@ export default async function HomePage() {
   const session = await auth();
   const followingBarStyle =
     "max-h-full md:max-h-[calc(100vh-124px)] min-w-[300px] md:basis-1/4 basis-1/5 flex flex-col";
-  const sectionClassName = "min-w-[400px] md:basis-1/3 basis-2/5 flex flex-col";
+  const sectionClassName = "min-w-[340px] md:basis-1/3 basis-2/5 flex flex-col";
 
   const user = session?.user;
   if (!user) {

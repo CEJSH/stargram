@@ -17,9 +17,18 @@ async function addComment(id: string, comment: string) {
   }).then((res) => res.json());
 }
 
+// async function addPost(id: string, text: string, file: Blob) {
+//   return fetch("/api/posts", {
+//     method: "POST",
+//     body: JSON.stringify({ id, text, file }),
+//   }).then((res) => res.json());
+// }
+
 export default function usePosts() {
   const cacheKeys = useCacheKeys();
+
   console.log(cacheKeys.postsKey);
+
   const {
     data: posts,
     isLoading,

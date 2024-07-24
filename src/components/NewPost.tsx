@@ -3,7 +3,7 @@ import { AuthUser } from "@/model/user";
 import UserInfoBox from "./UserInfoBox";
 import FilesIcon from "./ui/icons/FilesIcon";
 import Button from "./ui/Button";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import GridSpinner from "./ui/GridSpinner";
@@ -21,54 +21,54 @@ export default function NewPost({ user: { username, image, name } }: Props) {
 
   const textRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const files = e.target?.files;
     if (files && files[0]) {
       setFile(files[0]);
-      console.log(files[0]);
     }
-  };
-  const handleDrag = (e: React.DragEvent) => {
+  }, []);
+
+  const handleDrag = useCallback((e: React.DragEvent) => {
     if (e.type === "dragenter") {
       setDragging(true);
     } else if (e.type === "dragleave") {
       setDragging(false);
     }
-  };
-  const handleDragOver = (e: React.DragEvent) => {
-    // 파일을 dropping했을 때 브라우저 내부적으로 파일을 열려고 하는데 그 행위를 취소
-    e.preventDefault();
-  };
-  const handleDrop = (e: React.DragEvent) => {
+  }, []);
+
+  const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setDragging(false);
     const files = e.dataTransfer?.files;
     if (files && files[0]) {
       setFile(files[0]);
     }
-  };
+  }, []);
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!file) return;
+  const handleSubmit = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
+      if (!file) return;
 
-    setLoading(true);
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("text", textRef.current?.value ?? "");
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("text", textRef.current?.value ?? "");
 
-    fetch("/api/posts", { method: "POST", body: formData })
-      .then((res) => {
-        if (!res.ok) {
-          setError(`${res.status} ${res.statusText}`);
-          return;
-        }
-        router.push("/");
-      })
-      .catch((err) => setError(err.toString()))
-      .finally(() => setLoading(false));
-  };
+      fetch("/api/posts", { method: "POST", body: formData })
+        .then((res) => {
+          if (!res.ok) {
+            setError(`${res.status} ${res.statusText}`);
+            return;
+          }
+          router.push("/");
+        })
+        .catch((err) => setError(err.toString()))
+        .finally(() => setLoading(false));
+    },
+    [file, router]
+  );
   return (
     <section className="w-full flex flex-col justify-center items-center mt-4 bg-white rounded-2xl h-[calc(100vh-124px)]">
       {loading && (
@@ -112,7 +112,7 @@ export default function NewPost({ user: { username, image, name } }: Props) {
             htmlFor="input-upload"
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
-            onDragOver={handleDragOver}
+            onDragOver={(e) => e.preventDefault()}
             onDrop={handleDrop}
           >
             {dragging && (
