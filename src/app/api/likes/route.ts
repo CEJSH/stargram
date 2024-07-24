@@ -1,23 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "../../../../auth";
 import { dislikePost, likePost } from "@/app/service/posts";
+import { withSessionUser } from "@/util/session";
 
 export async function PUT(req: NextRequest) {
-  const session = await auth();
-  const user = session?.user;
-  if (!user) {
-    return new Response("Authentication Error", { status: 401 });
-  }
-  const { id, like } = await req.json();
+  return withSessionUser(async (user) => {
+    const { id, like } = await req.json();
 
-  if (!id || like === undefined) {
-    return new Response("Bad Request", { status: 400 });
-  }
-  const request = like ? likePost : dislikePost;
+    if (!id || like == null) {
+      return new Response("Bad Request", { status: 400 });
+    }
+    const request = like ? likePost : dislikePost;
 
-  return request(id, user.username)
-    .then((res) => NextResponse.json(res))
-    .catch((error) => {
-      new NextResponse(JSON.stringify(error), { status: 500 });
-    });
+    return request(id, user.username)
+      .then((res) => NextResponse.json(res))
+      .catch(
+        (error) => new NextResponse(JSON.stringify(error), { status: 500 })
+      );
+  });
 }
