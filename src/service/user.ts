@@ -50,14 +50,23 @@ export async function getUserDataBy(username: String) {
   );
 }
 
+// export async function deleteUser(username: String) {
+//   return client
+//     .delete({
+//       query: `*[_type == "User"]`,
+//     })
+//     .then(console.log)
+//     .catch(console.error);
+// }
+
 export async function searchUsersBy(keyword?: string) {
   const query = keyword
     ? `&& (name match "${keyword}") || (username match "${keyword}")`
     : "";
 
-  return client
+  return await client
     .fetch(
-      `*[_type == "user" ${query}] | order(_updatedAt desc) {
+      `*[_type == "user" ${query}]{
     ...,
     "id": _id,
     "following": count(following),
@@ -66,32 +75,14 @@ export async function searchUsersBy(keyword?: string) {
       undefined,
       { cache: "no-store" }
     )
-    .then((users) =>
-      users.map((user: SearchUser) => ({
+    .then((users) => {
+      console.log(users);
+      return users.map((user: SearchUser) => ({
         ...user,
         following: user.following ?? 0,
         followers: user.followers ?? 0,
-      }))
-    )
-    .then((posts) =>
-      posts.reduce((accUser: SearchUser[], currUser: SearchUser) => {
-        const postExists = accUser.some((user) => user.id === currUser.id);
-        if (postExists) {
-          return accUser;
-        } else {
-          if (currUser.id && currUser.id.startsWith("drafts")) {
-            return [
-              ...accUser,
-              {
-                ...currUser,
-                id: currUser.id.slice(7),
-              },
-            ];
-          }
-          return [...accUser, currUser];
-        }
-      }, [])
-    );
+      }));
+    });
 }
 
 export async function getUserForProfile(username: string) {

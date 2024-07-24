@@ -49,7 +49,7 @@ export default function ActionBar({
       className={"flex flex-col gap-[10px] h-fit w-full p-[4px] " + className}
     >
       <div className="flex flex-row justify-between items-center">
-        <div className="flex flex-row items-center gap-[16px] pb-2">
+        <div className="flex flex-row items-center gap-[16px]">
           <div className="flex flex-row gap-[2px] items-center rounded-2xl border-fuchsia-600 border-[1px] px-[8px] py-[4px] border-solid">
             <ToggleButton
               toggled={liked}
@@ -62,7 +62,7 @@ export default function ActionBar({
           <MessageIcon />
           <SendIcon />
         </div>
-        <div className="flex items-center pb-2">
+        <div className="flex items-center">
           <ToggleButton
             toggled={bookmarked}
             onToggle={handleBookmark}
