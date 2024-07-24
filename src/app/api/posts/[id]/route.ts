@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPost } from "@/app/service/posts";
+import { getPost } from "@/service/posts";
 import { withSessionUser } from "@/util/session";
 
 type Context = {

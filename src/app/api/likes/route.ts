@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { dislikePost, likePost } from "@/app/service/posts";
+import { dislikePost, likePost } from "@/service/posts";
 import { withSessionUser } from "@/util/session";
 
 export async function PUT(req: NextRequest) {

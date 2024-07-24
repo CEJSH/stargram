@@ -1,4 +1,4 @@
-import { searchUsersBy } from "@/app/service/user";
+import { searchUsersBy } from "@/service/user";
 import { NextResponse } from "next/server";
 
 //fetch함수를 사용하지 않으면 무조건 정적인 SSG로 빌드가 됨.

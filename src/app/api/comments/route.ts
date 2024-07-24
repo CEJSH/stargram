@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { addComment } from "@/app/service/posts";
+import { addComment } from "@/service/posts";
 import { withSessionUser } from "@/util/session";
 
 export async function POST(req: NextRequest) {

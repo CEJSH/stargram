@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { searchUsersBy } from "@/app/service/user";
+import { searchUsersBy } from "@/service/user";
 
 type Context = {
   params: { keyword: string };

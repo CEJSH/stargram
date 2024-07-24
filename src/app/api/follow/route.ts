@@ -1,7 +1,7 @@
 // 기존 사용자의 정보를 업데이트하므로 PUT & like와 비슷할 것으로 예상
 
 import { NextRequest, NextResponse } from "next/server";
-import { follow, unfollow } from "@/app/service/user";
+import { follow, unfollow } from "@/service/user";
 import { withSessionUser } from "@/util/session";
 
 export async function PUT(req: NextRequest) {

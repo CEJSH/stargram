@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { addBookmark, removeBookmark } from "@/app/service/user";
+import { addBookmark, removeBookmark } from "@/service/user";
 import { withSessionUser } from "@/util/session";
 
 export async function PUT(req: NextRequest) {

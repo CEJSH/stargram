@@ -1,9 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  getSavedPostsOf,
-  getLikedPostsOf,
-  getPostsOf,
-} from "@/app/service/posts";
+import { getSavedPostsOf, getLikedPostsOf, getPostsOf } from "@/service/posts";
 
 type Context = {
   params: { slug: string[] }; // slug/slug/slug

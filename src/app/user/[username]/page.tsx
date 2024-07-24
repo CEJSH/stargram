@@ -1,4 +1,4 @@
-import { getUserForProfile } from "@/app/service/user";
+import { getUserForProfile } from "@/service/user";
 import UserPosts from "@/components/UserPosts";
 import UserProfile from "@/components/UserProfile";
 import { Metadata } from "next";
